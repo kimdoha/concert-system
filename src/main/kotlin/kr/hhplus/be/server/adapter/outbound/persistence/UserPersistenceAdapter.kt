@@ -4,7 +4,6 @@ import kr.hhplus.be.server.application.ports.outbound.user.UserBalanceCommandPor
 import kr.hhplus.be.server.application.ports.outbound.user.UserBalanceQueryPort
 import kr.hhplus.be.server.domain.user.UserBalance
 import org.springframework.stereotype.Repository
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * @author Doha Kim
@@ -14,7 +13,10 @@ class UserPersistenceAdapter(
     private val userRepository: JpaUserRepository,
 ) : UserBalanceQueryPort, UserBalanceCommandPort {
     override fun getUserBalanceById(userId: String): UserBalance? {
-        return userRepository.findById(userId).getOrNull()?.toDomain()
+        return userRepository.findById(userId)
+            .takeIf { it.isPresent }
+            ?.get()
+            ?.toDomain()
     }
 
     override fun save(userBalance: UserBalance): UserBalance {
