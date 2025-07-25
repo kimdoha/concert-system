@@ -5,7 +5,6 @@ import kr.hhplus.be.server.domain.user.UserBalance
 /**
  * @author Doha Kim
  */
-interface UserBalanceOutputPort {
-    fun getUserBalanceById(userId: String): UserBalance?
+interface UserBalanceCommandPort {
     fun save(userBalance: UserBalance): UserBalance
 }

@@ -1,5 +1,7 @@
 package kr.hhplus.be.server.domain.user
 
+import kr.hhplus.be.server.domain.user.exception.BalanceExceedMaxLimitException
+import kr.hhplus.be.server.domain.user.exception.InSufficientBalanceException
 import java.math.BigDecimal
 
 /**
@@ -11,14 +13,12 @@ data class UserBalance(
 ) {
     fun charge(amount: BigDecimal): UserBalance {
         val newBalance = balance + amount
-        require(newBalance <= MAX_BALANCE) { "최대 충전 한도를 초과했습니다." }
+        require(newBalance <= MAX_BALANCE) { throw BalanceExceedMaxLimitException() }
         return copy(balance = newBalance)
     }
 
     fun use(amount: BigDecimal): UserBalance {
-        require(balance >= amount) {
-            "잔액이 부족합니다. 현재 잔액: ${balance.toPlainString()}원, 사용하려는 금액: ${amount.toPlainString()}원"
-        }
+        require(balance >= amount) { throw InSufficientBalanceException() }
 
         return this.copy(balance = balance - amount)
     }

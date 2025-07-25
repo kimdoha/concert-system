@@ -1,11 +1,15 @@
 package kr.hhplus.be.server.application.ports.inbound.user
 
-import kr.hhplus.be.server.application.service.user.ChargeUserBalanceService
 import java.math.BigDecimal
 
 /**
  * @author Doha Kim
  */
 interface ChargeUserBalanceUseCase {
-    fun chargeBalance(userId: String, amount: BigDecimal): ChargeUserBalanceService.Output
+    fun chargeBalance(userId: String, amount: BigDecimal): Output
+
+    data class Output(
+        val userId: String,
+        val balance: BigDecimal,
+    )
 }
