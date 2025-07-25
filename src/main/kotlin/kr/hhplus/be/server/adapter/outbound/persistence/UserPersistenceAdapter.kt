@@ -14,9 +14,8 @@ class UserPersistenceAdapter(
 ) : UserBalanceQueryPort, UserBalanceCommandPort {
     override fun getUserBalanceById(userId: String): UserBalance? {
         return userRepository.findById(userId)
-            .takeIf { it.isPresent }
-            ?.get()
-            ?.toDomain()
+            .map { it.toDomain() }
+            .orElse(null)
     }
 
     override fun save(userBalance: UserBalance): UserBalance {

@@ -1,6 +1,7 @@
 package kr.hhplus.be.server.adapter.inbound.api.user.response
 
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 /**
  * @author Doha Kim
@@ -8,4 +9,5 @@ import java.math.BigDecimal
 data class UserBalanceResponse(
     val userId: String,
     val balance: BigDecimal,
+    val updatedAt: LocalDateTime,
 )
