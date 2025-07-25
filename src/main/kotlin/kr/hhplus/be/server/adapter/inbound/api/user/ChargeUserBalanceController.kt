@@ -22,6 +22,6 @@ class ChargeUserBalanceController(
     ): UserBalanceResponse {
         body.validate()
         val response = chargeBalanceUseCase.chargeBalance(body.userId, body.amount)
-        return UserBalanceResponse(response.userId, response.balance)
+        return UserBalanceResponse(response.userId, response.balance, response.updatedAt)
     }
 }

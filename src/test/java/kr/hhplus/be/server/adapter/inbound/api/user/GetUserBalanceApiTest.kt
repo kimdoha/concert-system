@@ -1,9 +1,8 @@
 package kr.hhplus.be.server.adapter.inbound.api.user
 
+import com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName
 import com.epages.restdocs.apispec.ResourceDocumentation.resource
 import com.epages.restdocs.apispec.ResourceSnippetParameters
-import com.fasterxml.jackson.databind.ObjectMapper
-import kr.hhplus.be.server.adapter.inbound.api.user.request.ChargeBalanceRequest
 import kr.hhplus.be.server.adapter.outbound.persistence.JpaUserRepository
 import kr.hhplus.be.server.adapter.outbound.persistence.UserBalanceEntity
 import org.junit.jupiter.api.BeforeEach
@@ -20,10 +19,11 @@ import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.payload.JsonFieldType
 import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.math.BigDecimal
+import java.time.LocalDateTime
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
 /**
  * @author Doha Kim
@@ -33,13 +33,10 @@ import java.math.BigDecimal
 @EntityScan("kr.hhplus.be.server.adapter.outbound.persistence")
 @EnableJpaRepositories("kr.hhplus.be.server.adapter.outbound.persistence")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class ChargeUserBalanceApiTest {
+class GetUserBalanceApiTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
-
-    @Autowired
-    private lateinit var objectMapper: ObjectMapper
 
     @Autowired
     private lateinit var userBalanceRepository: JpaUserRepository
@@ -48,36 +45,37 @@ class ChargeUserBalanceApiTest {
     fun setup() {
         val userBalance = UserBalanceEntity(
             userId = TEST_USER_ID,
-            balance = BigDecimal.ZERO
+            balance = BigDecimal("50000.00"),
+            version = 0,
+            createdAt = LocalDateTime.now().minusDays(1),
+            updatedAt = LocalDateTime.now()
         )
         userBalanceRepository.save(userBalance)
     }
 
-    @DisplayName("사용자 잔액 충전 API (성공)")
+    @DisplayName("사용자 잔액 조회 API (성공)")
     @Test
-    fun `사용자 잔액 충전 성공`() {
+    fun `사용자 잔액 조회 성공`() {
         // Given
-        val request = ChargeBalanceRequest(userId = TEST_USER_ID, amount = BigDecimal("1000.0"))
+        val userId = TEST_USER_ID
 
         // When & Then
         mockMvc.perform(
-            post("/api/v1/user/balance/charge")
+            get("/api/v1/users/{userId}/balance", userId)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
         )
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.userId").value(request.userId))
-            .andExpect(jsonPath("$.balance").value(request.amount))
+            .andExpect(jsonPath("$.userId").value(userId))
+            .andExpect(jsonPath("$.balance").isNotEmpty)
             .andExpect(jsonPath("$.lastUpdatedAt").isNotEmpty)
-            .andDo {
+            .andDo(
                 MockMvcRestDocumentation.document(
                     DOCUMENT_IDENTIFIER,
                     resource(
                         ResourceSnippetParameters.builder()
-                            .description("사용자 잔액 충전 API")
-                            .requestFields(
-                                fieldWithPath("userId").type(JsonFieldType.STRING).description("사용자 식별자"),
-                                fieldWithPath("amount").type(JsonFieldType.NUMBER).description("충전할 잔액 금액")
+                            .description("사용자 잔액 조회 API")
+                            .pathParameters(
+                                parameterWithName("userId").description("사용자 식별자")
                             )
                             .responseFields(
                                 fieldWithPath("userId").type(JsonFieldType.STRING).description("사용자 식별자"),
@@ -87,7 +85,7 @@ class ChargeUserBalanceApiTest {
                             .build()
                     )
                 )
-            }
+            )
     }
 
     companion object {

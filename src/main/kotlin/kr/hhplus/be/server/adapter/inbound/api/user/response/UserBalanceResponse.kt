@@ -9,5 +9,5 @@ import java.time.LocalDateTime
 data class UserBalanceResponse(
     val userId: String,
     val balance: BigDecimal,
-    val updatedAt: LocalDateTime,
+    val lastUpdatedAt: LocalDateTime,
 )

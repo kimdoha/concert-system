@@ -25,7 +25,8 @@ class ChargeUserBalanceServiceImpl(
 
         return ChargeUserBalanceUseCase.Output(
             userId = savedBalance.userId,
-            balance = savedBalance.balance
+            balance = savedBalance.balance,
+            updatedAt = savedBalance.updatedAt,
         )
     }
 }
