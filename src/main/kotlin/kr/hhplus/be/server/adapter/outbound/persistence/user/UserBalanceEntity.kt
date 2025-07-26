@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.adapter.outbound.persistence
+package kr.hhplus.be.server.adapter.outbound.persistence.user
 
 import jakarta.persistence.*
 import kr.hhplus.be.server.domain.user.UserBalance

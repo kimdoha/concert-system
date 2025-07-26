@@ -4,8 +4,8 @@ import com.epages.restdocs.apispec.ResourceDocumentation.resource
 import com.epages.restdocs.apispec.ResourceSnippetParameters
 import com.fasterxml.jackson.databind.ObjectMapper
 import kr.hhplus.be.server.adapter.inbound.api.user.request.ChargeBalanceRequest
-import kr.hhplus.be.server.adapter.outbound.persistence.JpaUserRepository
-import kr.hhplus.be.server.adapter.outbound.persistence.UserBalanceEntity
+import kr.hhplus.be.server.adapter.outbound.persistence.user.JpaUserRepository
+import kr.hhplus.be.server.adapter.outbound.persistence.user.UserBalanceEntity
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

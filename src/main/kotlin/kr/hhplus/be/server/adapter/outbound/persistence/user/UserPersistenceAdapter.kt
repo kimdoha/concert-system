@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.adapter.outbound.persistence
+package kr.hhplus.be.server.adapter.outbound.persistence.user
 
 import kr.hhplus.be.server.application.ports.outbound.user.UserBalanceCommandPort
 import kr.hhplus.be.server.application.ports.outbound.user.UserBalanceQueryPort
