@@ -33,7 +33,7 @@ data class ConcertEntity(
         fetch = FetchType.LAZY,
         orphanRemoval = true,
     )
-    val schedules: List<ConcertScheduleEntity> = emptyList(),
+    var schedules: List<ConcertScheduleEntity> = emptyList(),
 
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
@@ -51,6 +51,11 @@ data class ConcertEntity(
     @PreUpdate
     fun preUpdate() {
         updatedAt = LocalDateTime.now()
+    }
+
+    fun setSchedules(schedules: List<ConcertScheduleEntity>) {
+        schedules.forEach { it.concert = this }
+        this.schedules = schedules
     }
 }
 

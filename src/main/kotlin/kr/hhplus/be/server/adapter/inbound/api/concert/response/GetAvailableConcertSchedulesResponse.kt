@@ -1,6 +1,8 @@
 package kr.hhplus.be.server.adapter.inbound.api.concert.response
 
-import kr.hhplus.be.server.application.ports.inbound.concert.GetAvailableConcertSchedulesUseCase
+import kr.hhplus.be.server.domain.concert.Concert
+import kr.hhplus.be.server.domain.concert.ConcertSchedule
+import kr.hhplus.be.server.domain.concert.ConcertSeat
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -11,7 +13,7 @@ class GetAvailableConcertSchedulesResponse(
     val concerts: List<ConcertResponse>,
 ) {
     companion object {
-        fun from(concert: GetAvailableConcertSchedulesUseCase.ConcertScheduleDetail): ConcertResponse {
+        fun from(concert: Concert): ConcertResponse {
             return ConcertResponse.from(concert)
         }
     }
@@ -25,15 +27,13 @@ data class ConcertResponse(
     val schedules: List<ConcertScheduleResponse>,
 ) {
     companion object {
-        fun from(concert: GetAvailableConcertSchedulesUseCase.ConcertScheduleDetail): ConcertResponse {
+        fun from(concert: Concert): ConcertResponse {
             return ConcertResponse(
                 concertId = concert.concertId,
                 title = concert.title,
                 description = concert.description,
                 location = concert.location,
-                schedules = concert.schedules.map {
-                    ConcertScheduleResponse.from(it)
-                }
+                schedules = concert.schedules.map { ConcertScheduleResponse.from(it) }
             )
         }
     }
@@ -49,7 +49,7 @@ data class ConcertScheduleResponse(
     val seats: List<ConcertSeatResponse> = emptyList(),
 ) {
     companion object {
-        fun from(schedule: GetAvailableConcertSchedulesUseCase.ConcertSchedule): ConcertScheduleResponse {
+        fun from(schedule: ConcertSchedule): ConcertScheduleResponse {
             return ConcertScheduleResponse(
                 performanceStartTime = schedule.performanceStartTime,
                 performanceEndTime = schedule.performanceEndTime,
@@ -70,7 +70,7 @@ data class ConcertSeatResponse(
     val status: String,
 ) {
     companion object {
-        fun from(seat: GetAvailableConcertSchedulesUseCase.ConcertSeat): ConcertSeatResponse {
+        fun from(seat: ConcertSeat): ConcertSeatResponse {
             return ConcertSeatResponse(
                 seatNo = seat.seatNo,
                 seatType = seat.seatType.name,

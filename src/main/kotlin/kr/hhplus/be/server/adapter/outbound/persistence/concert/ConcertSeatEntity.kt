@@ -17,7 +17,7 @@ data class ConcertSeatEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_schedule_id", nullable = false)
-    val concertSchedule: ConcertScheduleEntity,
+    var concertSchedule: ConcertScheduleEntity,
 
     @Column(name = "seat_no", nullable = false)
     val seatNo: Int,

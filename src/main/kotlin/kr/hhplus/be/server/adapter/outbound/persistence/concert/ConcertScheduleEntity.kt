@@ -17,7 +17,7 @@ data class ConcertScheduleEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id", nullable = false)
-    val concert: ConcertEntity,
+    var concert: ConcertEntity,
 
     @Column(name = "performance_start_ymdt")
     val performanceStartTime: LocalDateTime,
@@ -48,7 +48,7 @@ data class ConcertScheduleEntity(
         fetch = FetchType.LAZY,
         orphanRemoval = true,
     )
-    val seats: List<ConcertSeatEntity>,
+    var seats: List<ConcertSeatEntity>,
 
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
@@ -66,6 +66,11 @@ data class ConcertScheduleEntity(
     @PreUpdate
     fun preUpdate() {
         updatedAt = LocalDateTime.now()
+    }
+
+    fun setSeats(seats: List<ConcertSeatEntity>) {
+        seats.forEach { it.concertSchedule = this }
+        this.seats = seats
     }
 }
 

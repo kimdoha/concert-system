@@ -59,12 +59,14 @@ class GetUserBalanceApiTest {
         // Given
         val userId = TEST_USER_ID
 
-        // When & Then
-        mockMvc.perform(
+        // When
+        val result = mockMvc.perform(
             get("/api/v1/users/{userId}/balance", userId)
                 .contentType(MediaType.APPLICATION_JSON)
         )
-            .andExpect(status().isOk)
+
+        // Then
+        result.andExpect(status().isOk)
             .andExpect(jsonPath("$.userId").value(userId))
             .andExpect(jsonPath("$.balance").isNotEmpty)
             .andExpect(jsonPath("$.lastUpdatedAt").isNotEmpty)
