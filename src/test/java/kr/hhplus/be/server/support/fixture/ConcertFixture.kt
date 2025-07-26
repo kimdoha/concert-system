@@ -27,7 +27,7 @@ object ConcertFixture {
         val schedules = listOf(
             ConcertScheduleFixture.create(concertEntity = concert)
         )
-        concert.setSchedules(schedules)
+        concert.schedules = schedules
 
         return concert
     }

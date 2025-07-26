@@ -73,6 +73,8 @@ class GetConcertScheduleApiTest {
                                 fieldWithPath("concerts[].description").type(JsonFieldType.STRING).description("콘서트 설명"),
                                 fieldWithPath("concerts[].location").type(JsonFieldType.STRING).description("콘서트 장소"),
 
+                                fieldWithPath("concerts[].schedules").type(JsonFieldType.ARRAY).description("콘서트 일정 목록"),
+                                fieldWithPath("concerts[].schedules[].scheduleId").type(JsonFieldType.NUMBER).description("콘서트 일정 식별자"),
                                 fieldWithPath("concerts[].schedules[].performanceStartTime").type(JsonFieldType.STRING).description("공연 시작 시간"),
                                 fieldWithPath("concerts[].schedules[].performanceEndTime").type(JsonFieldType.STRING).description("공연 종료 시간"),
                                 fieldWithPath("concerts[].schedules[].performers").type(JsonFieldType.ARRAY).description("출연자 목록"),
@@ -80,6 +82,8 @@ class GetConcertScheduleApiTest {
                                 fieldWithPath("concerts[].schedules[].availableSeatCnt").type(JsonFieldType.NUMBER).description("예약 가능한 좌석 수"),
                                 fieldWithPath("concerts[].schedules[].status").type(JsonFieldType.STRING).description("공연 상태 (예: OPEN, CLOSED)"),
 
+                                fieldWithPath("concerts[].schedules[].seats").type(JsonFieldType.ARRAY).optional().description("좌석 정보 목록"),
+                                fieldWithPath("concerts[].schedules[].seats[].seatId").type(JsonFieldType.NUMBER).description("좌석 식별자"),
                                 fieldWithPath("concerts[].schedules[].seats[].seatNo").type(JsonFieldType.NUMBER).description("좌석 번호"),
                                 fieldWithPath("concerts[].schedules[].seats[].seatType").type(JsonFieldType.STRING).description("좌석 타입 (예: VIP, STANDARD)"),
                                 fieldWithPath("concerts[].schedules[].seats[].price").type(JsonFieldType.NUMBER).description("좌석 가격"),

@@ -40,6 +40,7 @@ data class ConcertResponse(
 }
 
 data class ConcertScheduleResponse(
+    val scheduleId: Long,
     val performanceStartTime: LocalDateTime,
     val performanceEndTime: LocalDateTime,
     val performers: List<String>,
@@ -51,6 +52,7 @@ data class ConcertScheduleResponse(
     companion object {
         fun from(schedule: ConcertSchedule): ConcertScheduleResponse {
             return ConcertScheduleResponse(
+                scheduleId = schedule.scheduleId,
                 performanceStartTime = schedule.performanceStartTime,
                 performanceEndTime = schedule.performanceEndTime,
                 performers = schedule.performers,
@@ -64,6 +66,7 @@ data class ConcertScheduleResponse(
 }
 
 data class ConcertSeatResponse(
+    val seatId: Long,
     val seatNo: Int,
     val seatType: String,
     val price: BigDecimal,
@@ -72,6 +75,7 @@ data class ConcertSeatResponse(
     companion object {
         fun from(seat: ConcertSeat): ConcertSeatResponse {
             return ConcertSeatResponse(
+                seatId = seat.seatId,
                 seatNo = seat.seatNo,
                 seatType = seat.seatType.name,
                 price = seat.price,

@@ -5,4 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 /**
  * @author Doha Kim
  */
-interface JpaUserRepository : JpaRepository<UserEntity, String>
+interface JpaUserBalanceRepository : JpaRepository<UserBalanceEntity, String>

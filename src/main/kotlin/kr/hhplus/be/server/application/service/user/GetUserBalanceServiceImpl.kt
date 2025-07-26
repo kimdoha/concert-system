@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service
 class GetUserBalanceServiceImpl(
     private val userBalanceQueryPort: UserBalanceQueryPort,
 ) : GetUserBalanceUseCase {
+
     override fun getUserBalance(userId: String): GetUserBalanceUseCase.Output {
         val userBalance = userBalanceQueryPort.getUserBalanceById(userId)
             ?: throw UserNotFoundException()

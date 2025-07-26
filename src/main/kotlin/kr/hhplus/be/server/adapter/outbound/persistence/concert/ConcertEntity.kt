@@ -9,8 +9,11 @@ import java.time.LocalDateTime
  */
 @Entity
 @Table(name = "concert")
-data class ConcertEntity(
+class ConcertEntity(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+
     @Column(name = "concert_id")
     val concertId: String,
 
@@ -28,12 +31,12 @@ data class ConcertEntity(
     val status: Concert.ConcertStatus,
 
     @OneToMany(
-        mappedBy = "concertSchedule",
+        mappedBy = "concert",
         cascade = [CascadeType.ALL],
         fetch = FetchType.LAZY,
         orphanRemoval = true,
     )
-    var schedules: List<ConcertScheduleEntity> = emptyList(),
+    var schedules: List<ConcertScheduleEntity>,
 
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
@@ -51,11 +54,6 @@ data class ConcertEntity(
     @PreUpdate
     fun preUpdate() {
         updatedAt = LocalDateTime.now()
-    }
-
-    fun setSchedules(schedules: List<ConcertScheduleEntity>) {
-        schedules.forEach { it.concert = this }
-        this.schedules = schedules
     }
 }
 

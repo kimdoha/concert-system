@@ -1,29 +1,24 @@
 package kr.hhplus.be.server.adapter.outbound.persistence.user
 
 import jakarta.persistence.*
-import kr.hhplus.be.server.domain.user.UserBalance
-import java.math.BigDecimal
+import kr.hhplus.be.server.domain.user.User
 import java.time.LocalDateTime
 
 /**
  * @author Doha Kim
  */
 @Entity
-@Table(name = "user_balance")
-data class UserBalanceEntity(
+@Table(name = "user")
+class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false, unique = true)
     val userId: String,
 
-    @Column(nullable = false)
-    val balance: BigDecimal,
-
-    @Version
-    @Column(name = "version", nullable = false)
-    val version: Int = 0,
+    @Column(name = "user_name", nullable = false)
+    val userName: String,
 
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
@@ -44,15 +39,14 @@ data class UserBalanceEntity(
     }
 }
 
-fun UserBalance.toEntity(): UserBalanceEntity =
-    UserBalanceEntity(
+fun User.toEntity(): UserEntity =
+    UserEntity(
         userId = this.userId,
-        balance = this.balance
+        userName = this.userName
     )
 
-fun UserBalanceEntity.toDomain(): UserBalance =
-    UserBalance(
+fun UserEntity.toDomain(): User =
+    User(
         userId = this.userId,
-        balance = this.balance,
-        updatedAt = this.updatedAt!!,
+        userName = this.userName,
     )

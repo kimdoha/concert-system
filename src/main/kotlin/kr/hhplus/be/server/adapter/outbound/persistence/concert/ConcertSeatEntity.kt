@@ -10,7 +10,7 @@ import java.time.LocalDateTime
  */
 @Entity
 @Table(name = "concert_seat")
-data class ConcertSeatEntity(
+class ConcertSeatEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
@@ -53,6 +53,7 @@ data class ConcertSeatEntity(
 
 fun ConcertSeatEntity.toDomain(): ConcertSeat =
     ConcertSeat(
+        seatId = this.id,
         seatNo = this.seatNo,
         price = this.price,
         status = this.status,

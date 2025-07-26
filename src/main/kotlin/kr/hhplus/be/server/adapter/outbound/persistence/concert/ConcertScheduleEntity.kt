@@ -9,7 +9,7 @@ import java.time.LocalDateTime
  */
 @Entity
 @Table(name = "concert_schedule")
-data class ConcertScheduleEntity(
+class ConcertScheduleEntity(
     @Id
     @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,15 +67,11 @@ data class ConcertScheduleEntity(
     fun preUpdate() {
         updatedAt = LocalDateTime.now()
     }
-
-    fun setSeats(seats: List<ConcertSeatEntity>) {
-        seats.forEach { it.concertSchedule = this }
-        this.seats = seats
-    }
 }
 
 fun ConcertScheduleEntity.toDomain(): ConcertSchedule =
     ConcertSchedule(
+        scheduleId = this.id,
         performanceStartTime = this.performanceStartTime,
         performanceEndTime = this.performanceEndTime,
         performers = this.performers,

@@ -31,7 +31,7 @@ object ConcertScheduleFixture {
             ConcertSeatFixture.create(concertSchedule = schedule)
         )
 
-        schedule.setSeats(seats)
+        schedule.seats = seats
         return schedule
     }
 }

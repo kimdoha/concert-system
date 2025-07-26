@@ -3,7 +3,7 @@ package kr.hhplus.be.server.adapter.inbound.api.user
 import com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName
 import com.epages.restdocs.apispec.ResourceDocumentation.resource
 import com.epages.restdocs.apispec.ResourceSnippetParameters
-import kr.hhplus.be.server.adapter.outbound.persistence.user.JpaUserRepository
+import kr.hhplus.be.server.adapter.outbound.persistence.user.JpaUserBalanceRepository
 import kr.hhplus.be.server.adapter.outbound.persistence.user.UserBalanceEntity
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -39,7 +39,7 @@ class GetUserBalanceApiTest {
     private lateinit var mockMvc: MockMvc
 
     @Autowired
-    private lateinit var userBalanceRepository: JpaUserRepository
+    private lateinit var userBalanceRepository: JpaUserBalanceRepository
 
     @BeforeEach
     fun setup() {
