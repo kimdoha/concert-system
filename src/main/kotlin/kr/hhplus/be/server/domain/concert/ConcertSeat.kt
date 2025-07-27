@@ -6,12 +6,19 @@ import java.math.BigDecimal
  * @author Doha Kim
  */
 data class ConcertSeat(
-    val seatId: Long,
+    val seatId: String,
+    val scheduleId: String,
+    val concertId: String,
     val seatNo: Int,
     val price: BigDecimal,
     val status: SeatStatus,
     val seatType: SeatType,
 ) {
+
+    fun isReservable(): Boolean {
+        return status == SeatStatus.AVAILABLE
+    }
+
     enum class SeatType {
         VIP, // VIP 좌석
         R, // R 좌석

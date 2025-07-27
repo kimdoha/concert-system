@@ -11,9 +11,11 @@ import java.time.LocalDateTime
 @Table(name = "concert_schedule")
 class ConcertScheduleEntity(
     @Id
-    @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
+
+    @Column(name = "schedule_id", nullable = false, unique = true)
+    val scheduleId: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_id", nullable = false)
@@ -42,14 +44,6 @@ class ConcertScheduleEntity(
     @Column(nullable = false)
     val status: ConcertSchedule.ScheduleStatus,
 
-    @OneToMany(
-        mappedBy = "concertSchedule",
-        cascade = [CascadeType.ALL],
-        fetch = FetchType.LAZY,
-        orphanRemoval = true,
-    )
-    var seats: List<ConcertSeatEntity>,
-
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
 
@@ -71,12 +65,12 @@ class ConcertScheduleEntity(
 
 fun ConcertScheduleEntity.toDomain(): ConcertSchedule =
     ConcertSchedule(
-        scheduleId = this.id,
+        scheduleId = this.scheduleId,
+        concertId = this.concert.concertId,
         performanceStartTime = this.performanceStartTime,
         performanceEndTime = this.performanceEndTime,
         performers = this.performers,
         totalSeatCnt = this.totalSeatCnt,
         availableSeatCnt = this.availableSeatCnt,
         status = this.status,
-        seats = this.seats.map { it.toDomain() },
     )

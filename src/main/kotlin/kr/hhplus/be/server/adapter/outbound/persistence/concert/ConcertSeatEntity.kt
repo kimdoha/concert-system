@@ -15,9 +15,12 @@ class ConcertSeatEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
+    @Column(name = "seat_id", nullable = false, unique = true)
+    val seatId: String,
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concert_schedule_id", nullable = false)
-    var concertSchedule: ConcertScheduleEntity,
+    val concertSchedule: ConcertScheduleEntity,
 
     @Column(name = "seat_no", nullable = false)
     val seatNo: Int,
@@ -53,7 +56,9 @@ class ConcertSeatEntity(
 
 fun ConcertSeatEntity.toDomain(): ConcertSeat =
     ConcertSeat(
-        seatId = this.id,
+        seatId = this.seatId,
+        scheduleId = this.concertSchedule.scheduleId,
+        concertId = this.concertSchedule.concert.concertId,
         seatNo = this.seatNo,
         price = this.price,
         status = this.status,

@@ -17,6 +17,7 @@ object ConcertSeatFixture {
         type: ConcertSeat.SeatType = ConcertSeat.SeatType.R,
     ): ConcertSeatEntity {
         return ConcertSeatEntity(
+            seatId = "seat-${concertSchedule.id}-$seatNo",
             concertSchedule = concertSchedule,
             seatNo = seatNo,
             price = price,

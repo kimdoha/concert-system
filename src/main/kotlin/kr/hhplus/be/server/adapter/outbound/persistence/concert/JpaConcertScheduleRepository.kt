@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 /**
  * @author Doha Kim
  */
-interface JpaConcertRepository : JpaRepository<ConcertEntity, Long> {
-    fun findByConcertId(concertId: String): ConcertEntity?
+interface JpaConcertScheduleRepository : JpaRepository<ConcertScheduleEntity, Long> {
+    fun findByScheduleId(scheduleId: String): ConcertScheduleEntity?
 }

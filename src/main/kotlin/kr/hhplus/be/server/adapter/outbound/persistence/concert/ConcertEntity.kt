@@ -30,14 +30,6 @@ class ConcertEntity(
     @Column(nullable = false)
     val status: Concert.ConcertStatus,
 
-    @OneToMany(
-        mappedBy = "concert",
-        cascade = [CascadeType.ALL],
-        fetch = FetchType.LAZY,
-        orphanRemoval = true,
-    )
-    var schedules: List<ConcertScheduleEntity>,
-
     @Column(name = "created_ymdt", updatable = false)
     var createdAt: LocalDateTime? = null,
 
@@ -63,6 +55,5 @@ fun ConcertEntity.toDomain(): Concert =
         title = this.title,
         description = this.description,
         location = this.location,
-        schedules = this.schedules.map { it.toDomain() },
         status = this.status,
     )
