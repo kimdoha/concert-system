@@ -11,5 +11,5 @@ interface ConcertQueryPort {
     fun findConcerts(): List<ConcertEntity>
     fun findConcertByConcertId(concertId: String): ConcertEntity?
     fun findConcertScheduleByScheduleId(scheduleId: String): ConcertScheduleEntity?
-    fun findSeatBySeatId(seatId: String): ConcertSeatEntity?
+    fun findSeatBySeatIdWithLock(seatId: String): ConcertSeatEntity?
 }

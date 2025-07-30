@@ -65,6 +65,7 @@ class ConcertScheduleEntity(
 
 fun ConcertScheduleEntity.toDomain(): ConcertSchedule =
     ConcertSchedule(
+        id = this.id,
         scheduleId = this.scheduleId,
         concertId = this.concert.concertId,
         performanceStartTime = this.performanceStartTime,

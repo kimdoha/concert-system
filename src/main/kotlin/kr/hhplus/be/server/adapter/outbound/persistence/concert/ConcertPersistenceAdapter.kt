@@ -24,7 +24,7 @@ class ConcertPersistenceAdapter(
         return jpaConcertScheduleRepository.findByScheduleId(scheduleId)
     }
 
-    override fun findSeatBySeatId(seatId: String): ConcertSeatEntity? {
+    override fun findSeatBySeatIdWithLock(seatId: String): ConcertSeatEntity? {
         return jpaConcertSeatRepository.findBySeatId(seatId)
     }
 }

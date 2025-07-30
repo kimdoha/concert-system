@@ -6,6 +6,7 @@ import java.math.BigDecimal
  * @author Doha Kim
  */
 data class ConcertSeat(
+    val id: Long,
     val seatId: String,
     val scheduleId: String,
     val concertId: String,

@@ -7,6 +7,7 @@ interface GetUserUseCase {
     fun getUser(userId: String): Output
 
     data class Output(
+        val id: Long,
         val userId: String,
         val name: String,
     )

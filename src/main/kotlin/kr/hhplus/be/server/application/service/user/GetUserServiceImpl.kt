@@ -18,6 +18,7 @@ class GetUserServiceImpl(
             ?: throw UserNotFoundException()
 
         return GetUserUseCase.Output(
+            id = user.id,
             userId = user.userId,
             name = user.userName,
         )

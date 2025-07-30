@@ -19,12 +19,13 @@ class CheckAvailableReservationTargetServiceImpl(
             concertQueryPort.findConcertByConcertId(command.concertId)?.toDomain() ?: throw ConcertNotFoundException()
         if (!concert.isReservable()) throw ReservationTargetNotAvailableException()
 
-        val schedule =
-            concertQueryPort.findConcertScheduleByScheduleId(command.scheduleId)?.toDomain()
-                ?: throw ScheduleNotFoundException()
+        val schedule = concertQueryPort.findConcertScheduleByScheduleId(command.scheduleId)?.toDomain()
+            ?: throw ScheduleNotFoundException()
         if (schedule.concertId != concert.concertId) throw ScheduleNotFoundException()
+        if (schedule.availableSeatCnt <= 0) throw ScheduleNotAvailableException()
 
-        val seat = concertQueryPort.findSeatBySeatId(command.seatId)?.toDomain() ?: throw SeatNotFoundException()
+        val seat =
+            concertQueryPort.findSeatBySeatIdWithLock(command.seatId)?.toDomain() ?: throw SeatNotFoundException()
         if (seat.scheduleId != schedule.scheduleId) throw SeatNotFoundException()
         if (!seat.isReservable()) throw ConcertSeatAlreadyReservedException()
 

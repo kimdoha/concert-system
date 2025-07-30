@@ -18,6 +18,9 @@ data class Reservation(
     val confirmedYmdt: LocalDateTime? = null,
 ) {
     enum class ReservationStatus {
-        TEMP_RESERVED, CANCELLED, EXPIRED, CONFIRMED
+        TEMP_RESERVED,
+        CANCELLED,
+        EXPIRED,
+        CONFIRMED,
     }
 }

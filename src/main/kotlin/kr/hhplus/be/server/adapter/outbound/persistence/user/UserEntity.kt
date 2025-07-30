@@ -47,6 +47,7 @@ fun User.toEntity(): UserEntity =
 
 fun UserEntity.toDomain(): User =
     User(
+        id = this.id,
         userId = this.userId,
         userName = this.userName,
     )

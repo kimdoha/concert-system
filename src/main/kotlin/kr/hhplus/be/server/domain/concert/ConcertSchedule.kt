@@ -6,6 +6,7 @@ import java.time.LocalDateTime
  * @author Doha Kim
  */
 data class ConcertSchedule(
+    val id: Long,
     val scheduleId: String,
     val concertId: String,
     val performanceStartTime: LocalDateTime,

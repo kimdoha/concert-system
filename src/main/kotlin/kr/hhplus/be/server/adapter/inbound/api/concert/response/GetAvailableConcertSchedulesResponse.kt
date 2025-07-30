@@ -52,7 +52,7 @@ data class ConcertScheduleResponse(
     companion object {
         fun from(schedule: ConcertSchedule): ConcertScheduleResponse {
             return ConcertScheduleResponse(
-                scheduleId = schedule.scheduleId,
+                scheduleId = schedule.id,
                 performanceStartTime = schedule.performanceStartTime,
                 performanceEndTime = schedule.performanceEndTime,
                 performers = schedule.performers,
@@ -75,7 +75,7 @@ data class ConcertSeatResponse(
     companion object {
         fun from(seat: ConcertSeat): ConcertSeatResponse {
             return ConcertSeatResponse(
-                seatId = seat.seatId,
+                seatId = seat.id,
                 seatNo = seat.seatNo,
                 seatType = seat.seatType.name,
                 price = seat.price,

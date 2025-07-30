@@ -51,6 +51,7 @@ class ConcertEntity(
 
 fun ConcertEntity.toDomain(): Concert =
     Concert(
+        id = this.id,
         concertId = this.concertId,
         title = this.title,
         description = this.description,
